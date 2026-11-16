@@ -20,10 +20,13 @@ type ProductCardProps = {
 export function ProductCard({ product, name, description, price, image, category, isFavorite = false, onToggleFavorite, onSelect }: ProductCardProps) {
   const displayName = name ?? product.name
   const displayDescription = description ?? product.description
-  const displayPrice = price ?? product.price
+  const basePrice = price ?? product.price
+  const finalPrice = product.finalPrice ?? basePrice
   const displayImage = image ?? product.image
   const displayCategory = category ?? product.category
   const lowStock = product.stock <= 6
+  const outOfStock = product.stock <= 0
+  const onSale = product.onSale && product.discountPercent > 0
 
   return (
     <article className="group overflow-hidden rounded-[26px] border border-stone-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-bubu-200 hover:shadow-card">
@@ -34,8 +37,10 @@ export function ProductCard({ product, name, description, price, image, category
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-white/25" />
         <img src={displayImage} alt={displayName} className="relative z-[1] aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
         <div className="absolute left-3 top-3 z-[2] flex flex-wrap gap-2">
-          <Badge tone={lowStock ? 'warm' : 'green'}>{lowStock ? 'Pocas unidades' : 'Disponible'}</Badge>
+          {outOfStock ? <Badge tone="warm">Agotado</Badge> : <Badge tone={lowStock ? 'warm' : 'green'}>{lowStock ? 'Pocas unidades' : 'Disponible'}</Badge>}
           <Badge tone="muted">{displayCategory}</Badge>
+          {onSale && <Badge tone="brand">-{product.discountPercent}%</Badge>}
+          {product.featured && <Badge tone="green">Recomendado</Badge>}
         </div>
         <button
           aria-label={isFavorite ? `Quitar ${displayName} de favoritos` : `Agregar ${displayName} a favoritos`}
@@ -48,7 +53,16 @@ export function ProductCard({ product, name, description, price, image, category
       <div className="px-4 pb-4 pt-1">
         <div className="mb-1 flex items-start justify-between gap-3">
           <h3 className="font-extrabold tracking-[-0.03em] text-bubu-900">{displayName}</h3>
-          <p className="shrink-0 font-extrabold text-caramel">{currency.format(displayPrice)}</p>
+          <div className="shrink-0 text-right">
+            {onSale ? (
+              <>
+                <p className="text-[11px] font-semibold text-stone-400 line-through">{currency.format(basePrice)}</p>
+                <p className="font-extrabold text-caramel">{currency.format(finalPrice)}</p>
+              </>
+            ) : (
+              <p className="font-extrabold text-caramel">{currency.format(basePrice)}</p>
+            )}
+          </div>
         </div>
         <p className="min-h-[40px] text-xs leading-5 text-stone-500">{displayDescription}</p>
         <div className="mt-4 flex items-center justify-between gap-3 border-t border-stone-100 pt-3">

@@ -19,6 +19,10 @@ __pycache__/
 .env.*
 !.env.example
 
+# Bases de datos locales
+backend/db.sqlite3
+*.sqlite3
+
 # Editores
 .vscode/
 .idea/

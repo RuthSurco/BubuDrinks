@@ -1,10 +1,11 @@
-import { Coffee, Heart, Home, Info, LogOut, Settings, ShoppingBag, Sparkles, X } from 'lucide-react'
+import { Coffee, Heart, Home, Info, LogOut, PackageCheck, Settings, ShoppingBag, Sparkles, X } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const navItems = [
   { label: 'Inicio', icon: Home },
   { label: 'Menú', icon: Coffee },
   { label: 'Favoritos', icon: Heart },
+  { label: 'Inventario', icon: PackageCheck },
   { label: 'Horarios', icon: ShoppingBag },
 ]
 

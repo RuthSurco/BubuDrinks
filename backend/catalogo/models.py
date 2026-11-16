@@ -20,6 +20,8 @@ class Producto(models.Model):
     imagen = models.URLField(blank=True)
     cantidad_disponible = models.PositiveIntegerField(default=0)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name='productos')
+    descuento_porcentaje = models.PositiveIntegerField(default=0)
+    es_destacado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['categoria__nombre', 'nombre']
@@ -28,3 +30,13 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    @property
+    def precio_final(self):
+        if self.descuento_porcentaje > 0:
+            return (self.precio * (100 - self.descuento_porcentaje)) / 100
+        return self.precio
+
+    @property
+    def en_promocion(self):
+        return self.descuento_porcentaje > 0
