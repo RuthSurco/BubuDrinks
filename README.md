@@ -96,4 +96,4 @@ python manage.py runserver
 
 ## Repositorio
 
-- GitHub: *(agregar aquí el enlace del repositorio)*
+- GitHub: [https://github.com/RuthSurco/BubuDrinks](https://github.com/RuthSurco/BubuDrinks)
