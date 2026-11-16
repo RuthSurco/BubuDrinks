@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; color: #25372A; background: #FBF6EE; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell { background-image: radial-gradient(circle at 92% 4%, rgba(201, 135, 85, .13), transparent 23rem), radial-gradient(circle at 35% 110%, rgba(167, 203, 175, .18), transparent 26rem); }
+.bubu-mark { display: grid; height: 68px; width: 68px; place-items: center; border-radius: 9999px; background: #ffffff; padding: 4px; box-shadow: 0 8px 16px rgba(77,124,89,.18), inset 0 0 0 1px rgba(77,124,89,.08); }
+.menu-dot { position: relative; }
+.menu-dot::before, .menu-dot::after { content: ''; position: absolute; border-radius: 999px; border: 1px solid rgba(77,124,89,.16); }
+.menu-dot::before { width: 170px; height: 170px; right: -58px; top: -58px; }
+.menu-dot::after { width: 105px; height: 105px; right: -25px; top: -25px; }
+.skeleton { background: linear-gradient(90deg, #edf3ee 25%, #f8fbf8 37%, #edf3ee 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
+@keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { scrollbar-width: none; }
+
+@media (max-width: 1023px) { .app-shell { min-height: 100vh; } }
