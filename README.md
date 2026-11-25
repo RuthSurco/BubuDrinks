@@ -66,6 +66,17 @@ incluidos en el frontend.
 - `GET /api/categorias/`
 - `GET /api/productos/`
 - `PATCH /api/productos/{id}/inventario/` actualiza la cantidad disponible.
+- `GET /api/area-privada/` zona privada, requiere token.
+
+## Validación de tokens
+
+La zona privada de la API solo responde si se envía un token. Para generarlo:
+
+```powershell
+python manage.py drf_create_token Ruth
+```
+
+En Postman se elige **Authorization → Auth Type: Token** y se pega el token que imprimió el comando. Sin token la respuesta es `401` y con token es `200` con los datos del usuario.
 
 ## Autor
 

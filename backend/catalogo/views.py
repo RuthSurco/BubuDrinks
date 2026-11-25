@@ -1,6 +1,9 @@
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Categoria, Producto
 from .serializers import CategoriaSerializer, ProductoSerializer
 
@@ -28,3 +31,15 @@ class ProductoViewSet(viewsets.ModelViewSet):
         producto.cantidad_disponible = cantidad
         producto.save(update_fields=['cantidad_disponible'])
         return Response(self.get_serializer(producto).data)
+
+
+class AreaPrivadaView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            'mensaje': 'Acceso autorizado al área privada.',
+            'usuario': request.user.username,
+            'es_staff': request.user.is_staff,
+        })
